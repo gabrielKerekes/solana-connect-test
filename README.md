@@ -1,46 +1,91 @@
-# Getting Started with Create React App
+# Test Solana Trezor integration
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repository is mainly meant to aid in developing the Solana Trezor integration.
 
-## Available Scripts
+## Setup
 
-In the project directory, you can run:
+Clone trezor-suite repo:
 
-### `yarn start`
+```
+git clone https://github.com/vacuumlabs/trezor-suite.git
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Checkout whichever up-to-date branch with Solana changes:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+git checkout solana-poc
+```
 
-### `yarn test`
+Initialize trezor-suite repo:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+yarn
+```
 
-### `yarn build`
+Build libs in trezor-suite repo:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+yarn build:libs
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Initialize connect-web:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+cd packages/connect-web
+yarn predev
+```
 
-### `yarn eject`
+Run connect-web:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+cd packages/connect-web
+yarn dev
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Initialize this repository:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+yarn
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Link the local connect-web package:
 
-## Learn More
+```
+yarn link ../trezor-suite/packages/connect-web -A -r -p
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Run the app:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+yarn start
+```
+
+To communicate with an emulator trezor bridge needs to run on port 21324 so we need to stop the trezor bridge service:
+
+```
+launchctl unload /Library/LaunchAgents/com.bitcointrezor.trezorBridge.trezord.plist
+```
+
+_The guide is focused on mac, the steps are similar on Linux, but I don't the correct commands to stop the service and launch bridge on port 21324._
+
+Run Trezor bridge on port 21324:
+
+```
+/Applications/Utilities/TREZOR\ Bridge/trezord -e 21324
+```
+
+Start the Trezor emulator and test the commands.
+
+Each time you modify connect you need to rebuild it:
+
+```
+cd packages/connect && yarn build:lib
+```
+
+And then maybe you also need to relink connect-web it in this repo:
+
+```
+yarn link ../trezor-suite/packages/connect-web -A -r -p
+```
+
+I'm not sure about the last two steps because I had some issues doing this and it never worked as I'd expect :/ Stopping, rebuilding and restarting everything seemed to work though :D It might also be needed to increase the connect and connect-web versions in package.json to prevent yarn cache from caching the packages.

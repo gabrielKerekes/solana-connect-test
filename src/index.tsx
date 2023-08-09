@@ -1,11 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import TrezorConnect from "@trezor/connect-web";
+
+TrezorConnect.init({
+  lazyLoad: true,
+  connectSrc: "https://localhost:8088/",
+  iframeSrc: "https://localhost:8088/",
+  manifest: {
+    email: "john.bool.bool@gmail.com",
+    appUrl: "localhost",
+  },
+});
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
