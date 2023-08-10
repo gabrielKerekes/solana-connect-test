@@ -5,6 +5,10 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import TrezorConnect from "@trezor/connect-web";
 
+// polyfill buffer
+import * as buffer from "buffer";
+window.Buffer = buffer.Buffer;
+
 TrezorConnect.init({
   lazyLoad: true,
   connectSrc: "https://localhost:8088/",
