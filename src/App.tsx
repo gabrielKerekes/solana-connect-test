@@ -8,24 +8,28 @@ import {
   PublicKey,
   TransactionMessage,
   VersionedTransaction,
+  AddressLookupTableAccount,
 } from "@solana/web3.js";
 import { getLedgerTransport } from "./ledgerTransport";
+
+let ledger: Solana | null = null;
+
+const initLedger = async () => {
+  if (ledger) return ledger;
+
+  const transport = await getLedgerTransport(() => {
+    ledger = null;
+  });
+  ledger = new Solana(transport);
+  return ledger;
+};
 
 function App() {
   const [path, setPath] = useState("m/44'/501'/0'/0'");
   const [display, setDisplay] = useState(false);
   const [result, setResult] = useState<any>();
-  const [ledger, setLedger] = useState<Solana | null>();
+  // const [ledger, setLedger] = useState<Solana | null>();
   const [hwWallet, setHwWallet] = useState<"trezor" | "ledger">("trezor");
-
-  useEffect(() => {
-    const initSolana = async () => {
-      const transport = await getLedgerTransport(() => {});
-      setLedger(new Solana(transport));
-    };
-
-    initSolana();
-  });
 
   const getPublicKey = async () => {
     if (hwWallet === "trezor") {
@@ -50,8 +54,11 @@ function App() {
 
       setResult(response.payload);
     } else {
-      const response = await ledger?.getAddress(path, display);
+      const response = await (
+        await initLedger()
+      ).getAddress(path.replace("m/", ""), display);
       console.log({ address: response?.address.toString("hex") });
+      setResult(response?.address.toString("hex"));
     }
   };
 
@@ -66,10 +73,11 @@ function App() {
 
       return response.payload;
     } else {
-      const response = await ledger?.signTransaction(
-        path,
-        Buffer.from(serializedTx, "hex")
-      );
+      const txBUFFER = Buffer.from(serializedTx, "hex");
+      console.log({ txBUFFER });
+      const response = await (
+        await initLedger()
+      ).signTransaction(path.replace("m/", ""), txBUFFER);
       console.log({ signature: response?.signature.toString("hex") });
 
       return { signature: response?.signature.toString("hex") };
@@ -95,16 +103,18 @@ function App() {
   };
 
   const signLegacyTransaction = async () => {
-    const phantomWalletPubKey = new PublicKey(
-      "ETxHeBBcuw9Yu4dGuP3oXrD12V5RECvmi8ogQ9PkjyVF"
+    const walletKey = new PublicKey(
+      hwWallet === "trezor"
+        ? "ETxHeBBcuw9Yu4dGuP3oXrD12V5RECvmi8ogQ9PkjyVF"
+        : "D2PPQSYFe83nDzk96FqGumVU8JA7J8vj2Rhjc2oXzEi5"
     );
     const tx = new Transaction({
       blockhash: "2p4rYZAaFfV5Uk5ugdG5KPNty9Uda9B3b4gWB8qnNqak",
       lastValidBlockHeight: 50,
-      feePayer: phantomWalletPubKey,
+      feePayer: walletKey,
     }).add(
       SystemProgram.transfer({
-        fromPubkey: phantomWalletPubKey,
+        fromPubkey: walletKey,
         toPubkey: new PublicKey("AeDJ1BqA7ruBbd6mEcS1QNxFbT8FQbiBVuN9NqK94Taq"),
         lamports: 20000000,
       })
@@ -114,7 +124,7 @@ function App() {
 
     console.log({ serializedTx });
 
-    const response = signTx(path, serializedTx);
+    const response = await signTx(path, serializedTx);
     console.log({ signature: response });
 
     setResult(response);
@@ -122,35 +132,67 @@ function App() {
 
   const signV0Transaction = async () => {
     const phantomWalletPubKey = new PublicKey(
-      "ETxHeBBcuw9Yu4dGuP3oXrD12V5RECvmi8ogQ9PkjyVF"
+      hwWallet === "trezor"
+        ? "ETxHeBBcuw9Yu4dGuP3oXrD12V5RECvmi8ogQ9PkjyVF"
+        : "D2PPQSYFe83nDzk96FqGumVU8JA7J8vj2Rhjc2oXzEi5"
     );
 
     const instructions = [
       SystemProgram.transfer({
         fromPubkey: phantomWalletPubKey,
-        toPubkey: new PublicKey("AeDJ1BqA7ruBbd6mEcS1QNxFbT8FQbiBVuN9NqK94Taq"),
+        toPubkey: new PublicKey("D2PPQSYFe83nDzk96FqGumVU8JA7J8vj2Rhjc2oXzEi5"),
         lamports: 20000000,
       }),
+      SystemProgram.transfer({
+        fromPubkey: phantomWalletPubKey,
+        toPubkey: new PublicKey("9wFA8FYZwvBbhE22uvYBZniTXi1KJiN8iNQsegkTWZqS"),
+        lamports: 30000000,
+      }),
+      SystemProgram.transfer({
+        fromPubkey: phantomWalletPubKey,
+        toPubkey: new PublicKey("GDDMwNyyx8uB6zrqwBFHjLLG3TBYk2F8Az4yrQC5RzMp"),
+        lamports: 40000000,
+      }),
     ];
+
+    const lookupTableAccount = new AddressLookupTableAccount({
+      key: new PublicKey("D2PPQSYFe83nDzk96FqGumVU8JA7J8vj2Rhjc2oXzEi5"),
+      state: {
+        deactivationSlot: BigInt(0),
+        lastExtendedSlot: 0,
+        lastExtendedSlotStartIndex: 0,
+        addresses: [
+          new PublicKey("D2PPQSYFe83nDzk96FqGumVU8JA7J8vj2Rhjc2oXzEi5"),
+          new PublicKey("9wFA8FYZwvBbhE22uvYBZniTXi1KJiN8iNQsegkTWZqS"),
+        ],
+      },
+    });
+
+    const anotherLookupTableAccount = new AddressLookupTableAccount({
+      key: new PublicKey("H8JEG2wjU2LnjXJUVkivEokcK1pmtHXTyoGeDaBtazCy"),
+      state: {
+        deactivationSlot: BigInt(10),
+        lastExtendedSlot: 10,
+        lastExtendedSlotStartIndex: 10,
+        addresses: [
+          new PublicKey("GDDMwNyyx8uB6zrqwBFHjLLG3TBYk2F8Az4yrQC5RzMp"),
+        ],
+      },
+    });
 
     const v0Message = new TransactionMessage({
       recentBlockhash: "2p4rYZAaFfV5Uk5ugdG5KPNty9Uda9B3b4gWB8qnNqak",
       payerKey: phantomWalletPubKey,
       instructions,
-    }).compileToV0Message();
+    }).compileToV0Message([lookupTableAccount, anotherLookupTableAccount]);
 
     const v0tx = new VersionedTransaction(v0Message);
 
     const serializedTx = Buffer.from(v0tx.message.serialize()).toString("hex");
     console.log({ serializedTx });
 
-    const response = await TrezorConnect.solanaSignTransaction({
-      signerPath: path,
-      serializedTx,
-    });
-    console.log({ signature: response });
-
-    setResult(response.payload);
+    const response = await signTx(path, serializedTx);
+    setResult(response);
   };
 
   return (
@@ -172,7 +214,7 @@ function App() {
               checked={display}
               onChange={() => setDisplay(!display)}
             />
-            Display on Trezor
+            Display on {hwWallet === "trezor" ? "Trezor" : "Ledger"}
           </label>
         </div>
 
