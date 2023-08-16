@@ -11,6 +11,12 @@ import {
   AddressLookupTableAccount,
 } from "@solana/web3.js";
 import { getLedgerTransport } from "./ledgerTransport";
+import {
+  createAccountTransaction,
+  createComputeBudgetTransaction,
+  createInitializeNonceAccountTransaction,
+  getRawTransaction,
+} from "./txs";
 
 let ledger: Solana | null = null;
 
@@ -30,6 +36,7 @@ function App() {
   const [result, setResult] = useState<any>();
   // const [ledger, setLedger] = useState<Solana | null>();
   const [hwWallet, setHwWallet] = useState<"trezor" | "ledger">("trezor");
+  const [message, setMessage] = useState("Long Off-Chain Test Message.");
 
   const getPublicKey = async () => {
     if (hwWallet === "trezor") {
@@ -98,6 +105,20 @@ function App() {
       path,
       "0100030500d1699dcb1811b50bb0055f13044463128242e37a463b52f6c97a1f6eef88adf8359ad2e63b4c9969d63b72c8caa50de8a5bce88c32b5d59c062b491dda86af000000000000000000000000000000000000000000000000000000000000000006a1d8179137542a983437bdfe2a7ab2557f535c8a78722b68a49dc00000000006a7d517192c5c51218cc94c3d4af17f58daee089ba1fd44e3dbd98a00000000c431a67912025e732b884206953b0a61c715c06930ace072ef71588529106ad10202020001630300000000d1699dcb1811b50bb0055f13044463128242e37a463b52f6c97a1f6eef88ad07000000000000007374616b653a308096980000000000c80000000000000006a1d8179137542a983437bdfe2a7ab2557f535c8a78722b68a49dc00000000003020104740000000000d1699dcb1811b50bb0055f13044463128242e37a463b52f6c97a1f6eef88ad00d1699dcb1811b50bb0055f13044463128242e37a463b52f6c97a1f6eef88ad0000000000000000000000000000000000d1699dcb1811b50bb0055f13044463128242e37a463b52f6c97a1f6eef88ad"
     );
+
+    setResult(response);
+  };
+
+  const signTransaction = async () => {
+    const serializedTx = getRawTransaction();
+    // const serializedTx = createAccountTransaction(hwWallet);
+    // const serializedTx = createComputeBudgetInstruction(hwWallet);
+    // const serializedTx = createInitializeNonceAccountTransaction(hwWallet);
+
+    console.log({ serializedTx });
+
+    const response = await signTx(path, serializedTx);
+    console.log({ signature: response });
 
     setResult(response);
   };
@@ -195,12 +216,57 @@ function App() {
     setResult(response);
   };
 
+  const signOffChainMessage = async (message: string) => {
+    const SIGNING_DOMAIN_SPECIFIER = "ff736f6c616e61206f6666636861696e";
+    const VERSION = "00";
+    const MESSAGE_FORMAT = "00";
+
+    const serializedMessage = Buffer.from(message, "ascii");
+    const serializedMessageHex = serializedMessage.toString("hex");
+    const serializedMessageLength = Buffer.from([
+      serializedMessage.length & 0xff,
+      serializedMessage.length >> 8,
+    ]).toString("hex");
+
+    const data = Buffer.from(
+      SIGNING_DOMAIN_SPECIFIER +
+        VERSION +
+        MESSAGE_FORMAT +
+        serializedMessageLength +
+        serializedMessageHex,
+      "hex"
+    );
+
+    if (hwWallet === "trezor") {
+      setResult(
+        (
+          await TrezorConnect.solanaSignOffChainMessage({
+            signerPath: path,
+            serializedMessage: data.toString("hex"),
+          })
+        ).payload
+      );
+    } else {
+      setResult(
+        (
+          await (
+            await initLedger()
+          ).signOffchainMessage(path.replace("m/", ""), data)
+        ).signature.toString("hex")
+      );
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         <select
           value={hwWallet}
-          onChange={(e) => setHwWallet(e.target.value as "ledger" | "trezor")}
+          onChange={(e) => {
+            const _hwWallet = e.target.value as "ledger" | "trezor";
+            setHwWallet(_hwWallet);
+            setPath(_hwWallet === "trezor" ? "m/44'/501'/0'/0'" : "m/44'/501'");
+          }}
         >
           <option value="trezor">Trezor</option>
           <option value="ledger">Ledger</option>
@@ -226,8 +292,13 @@ function App() {
         <button onClick={signCreateStakeAccountTransaction}>
           Sign create stake account transaction
         </button>
+        <button onClick={signTransaction}>Sign transaction</button>
         <button onClick={signLegacyTransaction}>Sign built transaction</button>
         <button onClick={signV0Transaction}>Sign V0 transaction</button>
+        <input value={message} onChange={(e) => setMessage(e.target.value)} />
+        <button onClick={() => signOffChainMessage(message)}>
+          Sign off-chain message
+        </button>
 
         <div className="result">
           <p>Result:</p>
