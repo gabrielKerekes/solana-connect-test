@@ -9,6 +9,7 @@
     "@ledgerhq/hw-transport-webhid": "^6.27.18",
     "@ledgerhq/hw-transport-webusb": "^6.27.18",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
+    "@solana/spl-token": "^0.3.8",
     "@solana/web3.js": "^1.78.3",
     "@svgr/webpack": "^5.5.0",
     "@testing-library/jest-dom": "^5.14.1",

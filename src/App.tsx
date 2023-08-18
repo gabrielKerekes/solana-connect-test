@@ -15,6 +15,7 @@ import {
   createAccountTransaction,
   createComputeBudgetTransaction,
   createInitializeNonceAccountTransaction,
+  createSetTokenAuthorityTransaction,
   getRawTransaction,
 } from "./txs";
 
@@ -72,7 +73,7 @@ function App() {
   const signTx = async (path: string, serializedTx: string) => {
     if (hwWallet === "trezor") {
       const response = await TrezorConnect.solanaSignTransaction({
-        signerPath: path,
+        path,
         serializedTx,
       });
 
@@ -110,11 +111,11 @@ function App() {
   };
 
   const signTransaction = async () => {
-    const serializedTx = getRawTransaction();
+    // const serializedTx = getRawTransaction();
     // const serializedTx = createAccountTransaction(hwWallet);
     // const serializedTx = createComputeBudgetInstruction(hwWallet);
     // const serializedTx = createInitializeNonceAccountTransaction(hwWallet);
-
+    const serializedTx = createSetTokenAuthorityTransaction();
     console.log({ serializedTx });
 
     const response = await signTx(path, serializedTx);
@@ -216,47 +217,6 @@ function App() {
     setResult(response);
   };
 
-  const signOffChainMessage = async (message: string) => {
-    const SIGNING_DOMAIN_SPECIFIER = "ff736f6c616e61206f6666636861696e";
-    const VERSION = "00";
-    const MESSAGE_FORMAT = "00";
-
-    const serializedMessage = Buffer.from(message, "ascii");
-    const serializedMessageHex = serializedMessage.toString("hex");
-    const serializedMessageLength = Buffer.from([
-      serializedMessage.length & 0xff,
-      serializedMessage.length >> 8,
-    ]).toString("hex");
-
-    const data = Buffer.from(
-      SIGNING_DOMAIN_SPECIFIER +
-        VERSION +
-        MESSAGE_FORMAT +
-        serializedMessageLength +
-        serializedMessageHex,
-      "hex"
-    );
-
-    if (hwWallet === "trezor") {
-      setResult(
-        (
-          await TrezorConnect.solanaSignOffChainMessage({
-            signerPath: path,
-            serializedMessage: data.toString("hex"),
-          })
-        ).payload
-      );
-    } else {
-      setResult(
-        (
-          await (
-            await initLedger()
-          ).signOffchainMessage(path.replace("m/", ""), data)
-        ).signature.toString("hex")
-      );
-    }
-  };
-
   return (
     <div className="App">
       <header className="App-header">
@@ -295,10 +255,6 @@ function App() {
         <button onClick={signTransaction}>Sign transaction</button>
         <button onClick={signLegacyTransaction}>Sign built transaction</button>
         <button onClick={signV0Transaction}>Sign V0 transaction</button>
-        <input value={message} onChange={(e) => setMessage(e.target.value)} />
-        <button onClick={() => signOffChainMessage(message)}>
-          Sign off-chain message
-        </button>
 
         <div className="result">
           <p>Result:</p>

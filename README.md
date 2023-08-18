@@ -13,7 +13,7 @@ git clone https://github.com/vacuumlabs/trezor-suite.git
 Checkout whichever up-to-date branch with Solana changes:
 
 ```
-git checkout solana-poc
+git checkout feat/solana-connect
 ```
 
 Initialize trezor-suite repo:

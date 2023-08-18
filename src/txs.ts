@@ -5,6 +5,10 @@ import {
   ComputeBudgetInstruction,
   ComputeBudgetProgram,
 } from "@solana/web3.js";
+import {
+  AuthorityType,
+  createSetAuthorityInstruction,
+} from "@solana/spl-token";
 
 const CREATE_TOKEN_TRANSACTION =
   "02000305b2a722dc18dd5c49c3f48e9b0726f11be66786e91cac573498d6ee88392cc96a527706a12f3f7c3c852582f0f79b515c03c6ffbe6e3100044ba7c982eb5cf9f2000000000000000000000000000000000000000000000000000000000000000006a7d517192c5c51218cc94c3d4af17f58daee089ba1fd44e3dbd98a0000000006ddf6e1d765a193d9cbe146ceeb79ac1cb485ed5f5b37913a8cf5857eff00a9175c061af9280e461e3390a05ba941cff657f7ff1aeaeb20f49b0bbd93b2ab3702020200013400000000604d160000000000520000000000000006ddf6e1d765a193d9cbe146ceeb79ac1cb485ed5f5b37913a8cf5857eff00a904020103230009b2a722dc18dd5c49c3f48e9b0726f11be66786e91cac573498d6ee88392cc96a00";
@@ -104,6 +108,24 @@ export const create = (hwWallet: "trezor" | "ledger") => {
       noncePubkey: new PublicKey(RANDOM_ADDRESS),
       authorizedPubkey: new PublicKey(walletKey),
     })
+  );
+
+  return tx.serializeMessage().toString("hex");
+};
+
+export const createSetTokenAuthorityTransaction = () => {
+  const tx = new Transaction({
+    blockhash: BLOCKHASH,
+    lastValidBlockHeight: LAST_VALID_BLOCK_HEIGHT,
+    feePayer: new PublicKey(TREZOR_ADDRESS),
+  }).add(
+    createSetAuthorityInstruction(
+      new PublicKey("6YuhWADZyAAxAaVKPm1G5N51RvDBXsnWo4SfsJ47wSoK"),
+      new PublicKey(TREZOR_ADDRESS),
+      AuthorityType.FreezeAccount,
+      new PublicKey(LEDGER_ADDRESS),
+      [new PublicKey(TREZOR_ADDRESS)]
+    )
   );
 
   return tx.serializeMessage().toString("hex");
