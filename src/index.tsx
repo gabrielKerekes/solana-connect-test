@@ -11,8 +11,8 @@ window.Buffer = buffer.Buffer;
 
 TrezorConnect.init({
   lazyLoad: true,
-  connectSrc: "https://localhost:8088/",
-  iframeSrc: "https://localhost:8088/",
+  // connectSrc: "https://localhost:8088/",
+  // iframeSrc: "https://localhost:8088/",
   manifest: {
     email: "john.bool.bool@gmail.com",
     appUrl: "localhost",

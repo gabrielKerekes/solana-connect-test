@@ -1822,17 +1822,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emurgo/cardano-serialization-lib-browser@npm:^11.0.0":
+"@emurgo/cardano-serialization-lib-browser@npm:^11.5.0":
   version: 11.5.0
   resolution: "@emurgo/cardano-serialization-lib-browser@npm:11.5.0"
   checksum: 4c45dca4ca6cea5298f5852671084263182b83a2eabae92deefaa079e1460bd719314b4177509b8e7c890ebe8e0f35f64eb92c26bc83a91edb46c0cbacb8a173
   languageName: node
   linkType: hard
 
-"@emurgo/cardano-serialization-lib-nodejs@npm:11.0.0":
-  version: 11.0.0
-  resolution: "@emurgo/cardano-serialization-lib-nodejs@npm:11.0.0"
-  checksum: b22b707e83ecd254a9888e24ada14d07fa8d37c749bd49e67b4b9ca13a3a42cc1b5198b1118d751cee94b479d5b7addd15af5d875cb5c91418f69f3a98d5276e
+"@emurgo/cardano-serialization-lib-nodejs@npm:11.5.0":
+  version: 11.5.0
+  resolution: "@emurgo/cardano-serialization-lib-nodejs@npm:11.5.0"
+  checksum: f9e271704ef12eb018bc0a15b8c6f83c61db694a422674267be6c546a9a89dd8b200781aca3f97dd5bb4291b0c84f6c60177fcf7e550964188a4ed6a8efd0316
   languageName: node
   linkType: hard
 
@@ -1878,13 +1878,63 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fivebinaries/coin-selection@npm:2.2.0":
-  version: 2.2.0
-  resolution: "@fivebinaries/coin-selection@npm:2.2.0"
+"@ethereumjs/common@npm:^4.1.0, @ethereumjs/common@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "@ethereumjs/common@npm:4.2.0"
   dependencies:
-    "@emurgo/cardano-serialization-lib-browser": ^11.0.0
-    "@emurgo/cardano-serialization-lib-nodejs": 11.0.0
-  checksum: 11ebafb4dae5fcd735723f288f1b3f3486e86df8f24b543b3baf52278fe7138d321b8662b4029c8e2e0c39be5bfcacbefbb1e320500221fddc41d9050420496c
+    "@ethereumjs/util": ^9.0.2
+  checksum: ef97c688d2e9618bb1328d32f5f2f1a9e73b7b896ba5ca83d474d25f1b1b7411276c3448f594639af99fc9b07c8f840be21cbd04e3052324ce81f5014820d392
+  languageName: node
+  linkType: hard
+
+"@ethereumjs/rlp@npm:^5.0.2":
+  version: 5.0.2
+  resolution: "@ethereumjs/rlp@npm:5.0.2"
+  bin:
+    rlp: bin/rlp.cjs
+  checksum: b569061ddb1f4cf56a82f7a677c735ba37f9e94e2bbaf567404beb9e2da7aa1f595e72fc12a17c61f7aec67fd5448443efe542967c685a2fe0ffc435793dcbab
+  languageName: node
+  linkType: hard
+
+"@ethereumjs/tx@npm:^5.1.0":
+  version: 5.2.1
+  resolution: "@ethereumjs/tx@npm:5.2.1"
+  dependencies:
+    "@ethereumjs/common": ^4.2.0
+    "@ethereumjs/rlp": ^5.0.2
+    "@ethereumjs/util": ^9.0.2
+    ethereum-cryptography: ^2.1.3
+  peerDependencies:
+    c-kzg: ^2.1.2
+  peerDependenciesMeta:
+    c-kzg:
+      optional: true
+  checksum: 851aafd64d094f6773c407c604697c3683ae9470dd79c427a3fda933bd9dbc247ca65f443bf0297aa546536fed8abf97d29a8a8d433bb2297529fd618e9ba81d
+  languageName: node
+  linkType: hard
+
+"@ethereumjs/util@npm:^9.0.2":
+  version: 9.0.2
+  resolution: "@ethereumjs/util@npm:9.0.2"
+  dependencies:
+    "@ethereumjs/rlp": ^5.0.2
+    ethereum-cryptography: ^2.1.3
+  peerDependencies:
+    c-kzg: ^2.1.2
+  peerDependenciesMeta:
+    c-kzg:
+      optional: true
+  checksum: cfac8c92beafc3ad1e7d7bce59027cde1f3cfd32623dea57c2295afbc1e33549799d39f92bdcf3cb7a8626b4620b0ba90af945534773fc9480c59def0e25e07d
+  languageName: node
+  linkType: hard
+
+"@fivebinaries/coin-selection@npm:2.2.1":
+  version: 2.2.1
+  resolution: "@fivebinaries/coin-selection@npm:2.2.1"
+  dependencies:
+    "@emurgo/cardano-serialization-lib-browser": ^11.5.0
+    "@emurgo/cardano-serialization-lib-nodejs": 11.5.0
+  checksum: 473946a2d4c307351601be588d8a56c51f7e86bcdc95cd8d3ca33bdbe7c2eb1d804e06dc8e40f8bd28fd0e5217b1db3076dba071f67b17b05fe22bd88dd28d0e
   languageName: node
   linkType: hard
 
@@ -2426,6 +2476,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@noble/curves@npm:1.3.0, @noble/curves@npm:~1.3.0":
+  version: 1.3.0
+  resolution: "@noble/curves@npm:1.3.0"
+  dependencies:
+    "@noble/hashes": 1.3.3
+  checksum: b65342ee66c4a440eee2978524412eabba9a9efdd16d6370e15218c6a7d80bddf35e66bb57ed52c0dfd32cb9a717b439ab3a72db618f1a0066dfebe3fd12a421
+  languageName: node
+  linkType: hard
+
 "@noble/curves@npm:^1.0.0":
   version: 1.1.0
   resolution: "@noble/curves@npm:1.1.0"
@@ -2462,6 +2521,13 @@ __metadata:
   version: 1.3.2
   resolution: "@noble/hashes@npm:1.3.2"
   checksum: fe23536b436539d13f90e4b9be843cc63b1b17666a07634a2b1259dded6f490be3d050249e6af98076ea8f2ea0d56f578773c2197f2aa0eeaa5fba5bc18ba474
+  languageName: node
+  linkType: hard
+
+"@noble/hashes@npm:1.3.3, @noble/hashes@npm:~1.3.2":
+  version: 1.3.3
+  resolution: "@noble/hashes@npm:1.3.3"
+  checksum: 8a6496d1c0c64797339bc694ad06cdfaa0f9e56cd0c3f68ae3666cfb153a791a55deb0af9c653c7ed2db64d537aa3e3054629740d2f2338bb1dcb7ab60cd205b
   languageName: node
   linkType: hard
 
@@ -2692,6 +2758,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@scure/base@npm:~1.1.4":
+  version: 1.1.5
+  resolution: "@scure/base@npm:1.1.5"
+  checksum: 9e9ee6088cb3aa0fb91f5a48497d26682c7829df3019b1251d088d166d7a8c0f941c68aaa8e7b96bbad20c71eb210397cb1099062cde3e29d4bad6b975c18519
+  languageName: node
+  linkType: hard
+
+"@scure/bip32@npm:1.3.3":
+  version: 1.3.3
+  resolution: "@scure/bip32@npm:1.3.3"
+  dependencies:
+    "@noble/curves": ~1.3.0
+    "@noble/hashes": ~1.3.2
+    "@scure/base": ~1.1.4
+  checksum: f939ca733972622fcc1e61d4fdf170a0ad294b24ddb7ed7cdd4c467e1ef283b970154cb101cf5f1a7b64cf5337e917ad31135911dfc36b1d76625320167df2fa
+  languageName: node
+  linkType: hard
+
+"@scure/bip39@npm:1.2.2":
+  version: 1.2.2
+  resolution: "@scure/bip39@npm:1.2.2"
+  dependencies:
+    "@noble/hashes": ~1.3.2
+    "@scure/base": ~1.1.4
+  checksum: cb99505e6d2deef8e55e81df8c563ce8dbfdf1595596dc912bceadcf366c91b05a98130e928ecb090df74efdb20150b64acc4be55bc42768cab4d39a2833d234
+  languageName: node
+  linkType: hard
+
 "@sinclair/typebox@npm:^0.24.1":
   version: 0.24.51
   resolution: "@sinclair/typebox@npm:0.24.51"
@@ -2703,6 +2797,13 @@ __metadata:
   version: 0.27.8
   resolution: "@sinclair/typebox@npm:0.27.8"
   checksum: 00bd7362a3439021aa1ea51b0e0d0a0e8ca1351a3d54c606b115fdcc49b51b16db6e5f43b4fe7a28c38688523e22a94d49dd31168868b655f0d4d50f032d07a1
+  languageName: node
+  linkType: hard
+
+"@sinclair/typebox@npm:^0.31.28":
+  version: 0.31.28
+  resolution: "@sinclair/typebox@npm:0.31.28"
+  checksum: 0dd8e11bb608a28f8db6aa6166a354453126249e5bbf4442654ba1c520bd10a55d0beb4cb294f4834a7619efa833a870a31902933a46548bfc24d0e0710576d2
   languageName: node
   linkType: hard
 
@@ -3019,91 +3120,119 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@trezor/analytics@portal:../trezor-suite/packages/analytics::locator=solana-connect-test%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@trezor/analytics@portal:../trezor-suite/packages/analytics::locator=solana-connect-test%40workspace%3A."
+"@trezor/analytics@npm:1.0.14":
+  version: 1.0.14
+  resolution: "@trezor/analytics@npm:1.0.14"
   dependencies:
-    "@trezor/env-utils": "workspace:*"
-    "@trezor/utils": "workspace:*"
+    "@trezor/env-utils": 1.0.13
+    "@trezor/utils": 9.0.21
+  peerDependencies:
+    tslib: ^2.6.2
+  checksum: 526842a66af608c90904b51f7c5a71ab4686eaeafd5ca37b96a922653739a908ff29907dab3a6bce7af65e42675ea14901b8768740cb27e99d9310765f6ea024
   languageName: node
-  linkType: soft
+  linkType: hard
 
-"@trezor/blockchain-link-types@portal:../trezor-suite/packages/blockchain-link-types::locator=solana-connect-test%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@trezor/blockchain-link-types@portal:../trezor-suite/packages/blockchain-link-types::locator=solana-connect-test%40workspace%3A."
+"@trezor/blockchain-link-types@npm:1.0.13":
+  version: 1.0.13
+  resolution: "@trezor/blockchain-link-types@npm:1.0.13"
+  dependencies:
+    "@solana/web3.js": ^1.87.6
+    "@trezor/type-utils": 1.0.4
+    "@trezor/utxo-lib": 2.0.6
+    socks-proxy-agent: 6.1.1
+  checksum: 501c7808075ba8e7c72833f376a5756b3dcc1f9bd95ff4793f2ef8928dad38d58e46c9a9c7abfd5e8e75f6bcfeef566481a8923f1c565e989061903422861c8a
   languageName: node
-  linkType: soft
+  linkType: hard
 
-"@trezor/blockchain-link-utils@portal:../trezor-suite/packages/blockchain-link-utils::locator=solana-connect-test%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@trezor/blockchain-link-utils@portal:../trezor-suite/packages/blockchain-link-utils::locator=solana-connect-test%40workspace%3A."
+"@trezor/blockchain-link-utils@npm:1.0.14":
+  version: 1.0.14
+  resolution: "@trezor/blockchain-link-utils@npm:1.0.14"
   dependencies:
     "@mobily/ts-belt": ^3.13.1
     "@solana/web3.js": ^1.87.6
-    "@trezor/utils": "workspace:*"
+    "@trezor/utils": 9.0.21
     bignumber.js: ^9.1.1
+  peerDependencies:
+    tslib: ^2.6.2
+  checksum: 7f479d6c5ef612f3e49502edaaff6d25575c2c1fb1d611f84a5ab37165fd316b4d6317eebfd2210ca25b7b0d2b1be76bb33675ef52ec623f87e137187152e49a
   languageName: node
-  linkType: soft
+  linkType: hard
 
-"@trezor/blockchain-link@portal:../trezor-suite/packages/blockchain-link::locator=solana-connect-test%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@trezor/blockchain-link@portal:../trezor-suite/packages/blockchain-link::locator=solana-connect-test%40workspace%3A."
+"@trezor/blockchain-link@npm:2.1.25":
+  version: 2.1.25
+  resolution: "@trezor/blockchain-link@npm:2.1.25"
   dependencies:
     "@solana/buffer-layout": ^4.0.1
     "@solana/web3.js": ^1.87.6
-    "@trezor/blockchain-link-types": "workspace:*"
-    "@trezor/blockchain-link-utils": "workspace:*"
-    "@trezor/utils": "workspace:*"
-    "@trezor/utxo-lib": "workspace:*"
+    "@trezor/blockchain-link-types": 1.0.13
+    "@trezor/blockchain-link-utils": 1.0.14
+    "@trezor/utils": 9.0.21
+    "@trezor/utxo-lib": 2.0.6
     "@types/web": ^0.0.119
     bignumber.js: ^9.1.1
     events: ^3.3.0
     ripple-lib: ^1.10.1
     socks-proxy-agent: 6.1.1
-    ws: 7.5.9
+    ws: ^8.16.0
+  peerDependencies:
+    tslib: ^2.6.2
+  checksum: 1319833970c5a0f64a7b6f9819d254f4ea984e8d9a13686216c2f5e76008d13ba0f8e9b41539e70369e6f220d35c38b7e16db12718202ec77aa51d60d882be93
   languageName: node
-  linkType: soft
+  linkType: hard
 
-"@trezor/connect-analytics@portal:../trezor-suite/packages/connect-analytics::locator=solana-connect-test%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@trezor/connect-analytics@portal:../trezor-suite/packages/connect-analytics::locator=solana-connect-test%40workspace%3A."
+"@trezor/connect-analytics@npm:1.0.12":
+  version: 1.0.12
+  resolution: "@trezor/connect-analytics@npm:1.0.12"
   dependencies:
-    "@trezor/analytics": "workspace:*"
+    "@trezor/analytics": 1.0.14
+  peerDependencies:
+    tslib: ^2.6.2
+  checksum: 44515d44f9ba205585a3f0772a9859029470f570bbb0ec0958b23e9afa74e60244530f2d363e91b18f2cd1b8cc5e6679f5416ac31944db423f8810e5f6ecf469
   languageName: node
-  linkType: soft
+  linkType: hard
 
-"@trezor/connect-common@portal:../trezor-suite/packages/connect-common::locator=solana-connect-test%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@trezor/connect-common@portal:../trezor-suite/packages/connect-common::locator=solana-connect-test%40workspace%3A."
+"@trezor/connect-common@npm:0.0.28":
+  version: 0.0.28
+  resolution: "@trezor/connect-common@npm:0.0.28"
   dependencies:
-    "@trezor/env-utils": "workspace:*"
+    "@trezor/env-utils": 1.0.13
+    "@trezor/utils": 9.0.21
+  peerDependencies:
+    tslib: ^2.6.2
+  checksum: 7a50e3bfa14f38f415d0b9348bf8e03529187a0950f7a680871d0f83728fc171d5e8a9621ef9613409e5a9010e70d1eb7827212988bf37f273cd2754982d9eb4
   languageName: node
-  linkType: soft
+  linkType: hard
 
-"@trezor/connect-web@portal:../trezor-suite/packages/connect-web::locator=solana-connect-test%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@trezor/connect-web@portal:../trezor-suite/packages/connect-web::locator=solana-connect-test%40workspace%3A."
+"@trezor/connect-web@npm:^9.1.12":
+  version: 9.1.12
+  resolution: "@trezor/connect-web@npm:9.1.12"
   dependencies:
-    "@trezor/connect": "workspace:*"
-    "@trezor/utils": "workspace:*"
+    "@trezor/connect": 9.1.12
+    "@trezor/utils": 9.0.21
     events: ^3.3.0
+  peerDependencies:
+    tslib: ^2.6.2
+  checksum: 4e90044ae3e45048adb6d0456851c6903891620208deda9d848838dce4b233a5a7e8674bc4303d33a317638a926af5af029db60cbc63825717478ac80abef1a9
   languageName: node
-  linkType: soft
+  linkType: hard
 
-"@trezor/connect@portal:../trezor-suite/packages/connect::locator=solana-connect-test%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@trezor/connect@portal:../trezor-suite/packages/connect::locator=solana-connect-test%40workspace%3A."
+"@trezor/connect@npm:9.1.12":
+  version: 9.1.12
+  resolution: "@trezor/connect@npm:9.1.12"
   dependencies:
-    "@fivebinaries/coin-selection": 2.2.0
-    "@trezor/blockchain-link": "workspace:*"
-    "@trezor/blockchain-link-types": "workspace:*"
-    "@trezor/connect-analytics": "workspace:*"
-    "@trezor/connect-common": "workspace:*"
-    "@trezor/protobuf": "workspace:*"
-    "@trezor/protocol": "workspace:*"
-    "@trezor/transport": "workspace:*"
-    "@trezor/utils": "workspace:*"
-    "@trezor/utxo-lib": "workspace:*"
+    "@ethereumjs/common": ^4.1.0
+    "@ethereumjs/tx": ^5.1.0
+    "@fivebinaries/coin-selection": 2.2.1
+    "@trezor/blockchain-link": 2.1.25
+    "@trezor/blockchain-link-types": 1.0.13
+    "@trezor/connect-analytics": 1.0.12
+    "@trezor/connect-common": 0.0.28
+    "@trezor/protobuf": 1.0.8
+    "@trezor/protocol": 1.0.5
+    "@trezor/schema-utils": 1.0.1
+    "@trezor/transport": 1.1.24
+    "@trezor/utils": 9.0.21
+    "@trezor/utxo-lib": 2.0.6
     bignumber.js: ^9.1.1
     blakejs: ^1.2.1
     bs58: ^5.0.0
@@ -3112,73 +3241,99 @@ __metadata:
     events: ^3.3.0
   peerDependencies:
     tslib: ^2.6.2
+  checksum: bd7d51bea59a06fdf214be25ecfa3f7f636b2ebbfda9c1b2e796a07a22b56a25c6836087e9dc3805eae05d31faadb9982fedfd576b2b6c1f6993fcc27f55a2b7
   languageName: node
-  linkType: soft
+  linkType: hard
 
-"@trezor/env-utils@portal:../trezor-suite/packages/env-utils::locator=solana-connect-test%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@trezor/env-utils@portal:../trezor-suite/packages/env-utils::locator=solana-connect-test%40workspace%3A."
+"@trezor/env-utils@npm:1.0.13":
+  version: 1.0.13
+  resolution: "@trezor/env-utils@npm:1.0.13"
   dependencies:
     ua-parser-js: ^1.0.37
   peerDependencies:
-    expo-localization: ^14.1.1
-    react-native: 0.71.8
-    react-native-config: ^1.5.0
+    expo-localization: "*"
+    react-native: "*"
+    tslib: ^2.6.2
   peerDependenciesMeta:
     expo-localization:
       optional: true
     react-native:
       optional: true
-    react-native-config:
-      optional: true
+  checksum: 8886cd5850ea61db0fb9a7965dff9984b148605c3fa33637e71d27473475edc53d7f565f414dbc9016453ce1c077dce8283e73151d8a580edab8c4afac0f7fd8
   languageName: node
-  linkType: soft
+  linkType: hard
 
-"@trezor/protobuf@portal:../trezor-suite/packages/protobuf::locator=solana-connect-test%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@trezor/protobuf@portal:../trezor-suite/packages/protobuf::locator=solana-connect-test%40workspace%3A."
+"@trezor/protobuf@npm:1.0.8":
+  version: 1.0.8
+  resolution: "@trezor/protobuf@npm:1.0.8"
   dependencies:
-    bytebuffer: ^5.0.1
+    "@trezor/schema-utils": 1.0.1
     long: ^4.0.0
     protobufjs: 7.2.5
+  peerDependencies:
+    tslib: ^2.6.2
+  checksum: 08e57f589f02c879dc34b1d30ff084de10d79331dc03d99fc144f620ba0542a396d0ff3761642ab83be4db5ccdb37e34fb7976b75bc7572e6866c3c46df9746e
   languageName: node
-  linkType: soft
+  linkType: hard
 
-"@trezor/protocol@portal:../trezor-suite/packages/protocol::locator=solana-connect-test%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@trezor/protocol@portal:../trezor-suite/packages/protocol::locator=solana-connect-test%40workspace%3A."
-  dependencies:
-    bytebuffer: ^5.0.1
+"@trezor/protocol@npm:1.0.5":
+  version: 1.0.5
+  resolution: "@trezor/protocol@npm:1.0.5"
+  peerDependencies:
+    tslib: ^2.6.2
+  checksum: cbe5a18ceb28790fcde780ef54960894805a25255666ec04853a95eaecef917b374e8aaf8adef48726479d2690f73191f68a79d3f53aa5661cfa5e956b68b9e4
   languageName: node
-  linkType: soft
+  linkType: hard
 
-"@trezor/transport@portal:../trezor-suite/packages/transport::locator=solana-connect-test%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@trezor/transport@portal:../trezor-suite/packages/transport::locator=solana-connect-test%40workspace%3A."
+"@trezor/schema-utils@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@trezor/schema-utils@npm:1.0.1"
   dependencies:
-    "@trezor/protobuf": "workspace:*"
-    "@trezor/protocol": "workspace:*"
-    "@trezor/utils": "workspace:*"
-    bytebuffer: ^5.0.1
+    "@sinclair/typebox": ^0.31.28
+    ts-mixer: ^6.0.3
+  checksum: b382049312422fd72de29febbd359feed2f30ac71c6ffbe983acd07fee71cef04fc651a3eff7427e8b14c029a40d24501e651c99b946e274f6352baf59120e17
+  languageName: node
+  linkType: hard
+
+"@trezor/transport@npm:1.1.24":
+  version: 1.1.24
+  resolution: "@trezor/transport@npm:1.1.24"
+  dependencies:
+    "@trezor/protobuf": 1.0.8
+    "@trezor/protocol": 1.0.5
+    "@trezor/utils": 9.0.21
     cross-fetch: ^4.0.0
     json-stable-stringify: ^1.0.2
     long: ^4.0.0
     protobufjs: 7.2.5
     usb: ^2.11.0
+  peerDependencies:
+    tslib: ^2.6.2
+  checksum: 7f818406e9cbabc42c23205ef7b4b5f164ad70f8a562abaa901f7a72288b78a7354e4e860515c82a2055f2a0e37a3cf7b2217d3b4183b901b38b7d90e62b5ccb
   languageName: node
-  linkType: soft
+  linkType: hard
 
-"@trezor/utils@portal:../trezor-suite/packages/utils::locator=solana-connect-test%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@trezor/utils@portal:../trezor-suite/packages/utils::locator=solana-connect-test%40workspace%3A."
+"@trezor/type-utils@npm:1.0.4":
+  version: 1.0.4
+  resolution: "@trezor/type-utils@npm:1.0.4"
+  checksum: b73fb3ee4b0382dfe9ab93a7a43b35b236fd2288a4c6384c197dbf41d974dfcae793b56d0343a4ffe2714fd913d9cde6c7976cd4b84a79f1862c2217cd503f85
   languageName: node
-  linkType: soft
+  linkType: hard
 
-"@trezor/utxo-lib@portal:../trezor-suite/packages/utxo-lib::locator=solana-connect-test%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@trezor/utxo-lib@portal:../trezor-suite/packages/utxo-lib::locator=solana-connect-test%40workspace%3A."
+"@trezor/utils@npm:9.0.21":
+  version: 9.0.21
+  resolution: "@trezor/utils@npm:9.0.21"
+  peerDependencies:
+    tslib: ^2.6.2
+  checksum: 35f426fefec7ca0dae04f88d301b541c8b73c143cfc0e588061267af5bc05bcfed87e6ba29e4f19e2d76e80ff834c370f9a5b33e6a010f80f5eedcb297c498e6
+  languageName: node
+  linkType: hard
+
+"@trezor/utxo-lib@npm:2.0.6":
+  version: 2.0.6
+  resolution: "@trezor/utxo-lib@npm:2.0.6"
   dependencies:
-    "@trezor/utils": "workspace:*"
+    "@trezor/utils": 9.0.21
     bchaddrjs: ^0.5.2
     bech32: ^2.0.0
     bip66: ^1.1.5
@@ -3196,8 +3351,11 @@ __metadata:
     typeforce: ^1.18.0
     varuint-bitcoin: ^1.1.2
     wif: ^4.0.0
+  peerDependencies:
+    tslib: ^2.6.2
+  checksum: 699230c6cefb51b2693191e69347a16868bb20a5d6ae1d15ddb6a2bc688c8d2731b4d338affaa5c5085e8a3ac7d2fd0e5147c24ed61f0f58d1f056b57c4d1293
   languageName: node
-  linkType: soft
+  linkType: hard
 
 "@trysound/sax@npm:0.2.0":
   version: 0.2.0
@@ -5111,15 +5269,6 @@ __metadata:
   version: 3.3.0
   resolution: "builtin-modules@npm:3.3.0"
   checksum: db021755d7ed8be048f25668fe2117620861ef6703ea2c65ed2779c9e3636d5c3b82325bd912244293959ff3ae303afa3471f6a15bf5060c103e4cc3a839749d
-  languageName: node
-  linkType: hard
-
-"bytebuffer@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "bytebuffer@npm:5.0.1"
-  dependencies:
-    long: ~3
-  checksum: d95db66499df77394d6f769b216054b596e492783905f53a06e7c0b7091b24d7b0477de133d08300672e0cd5e140eab81728cdd31ccd9367f7dc4944cdaf913b
   languageName: node
   linkType: hard
 
@@ -7057,6 +7206,18 @@ __metadata:
   version: 1.8.1
   resolution: "etag@npm:1.8.1"
   checksum: 571aeb3dbe0f2bbd4e4fadbdb44f325fc75335cd5f6f6b6a091e6a06a9f25ed5392f0863c5442acb0646787446e816f13cbfc6edce5b07658541dff573cab1ff
+  languageName: node
+  linkType: hard
+
+"ethereum-cryptography@npm:^2.1.3":
+  version: 2.1.3
+  resolution: "ethereum-cryptography@npm:2.1.3"
+  dependencies:
+    "@noble/curves": 1.3.0
+    "@noble/hashes": 1.3.3
+    "@scure/bip32": 1.3.3
+    "@scure/bip39": 1.2.2
+  checksum: 7f9c14f868a588641179cace3eb86c332c4743290865db699870710253cabc4dc74bd4bce5e7bc6db667482e032e94d6f79521219eb6be5dc422059d279a27b7
   languageName: node
   linkType: hard
 
@@ -9804,13 +9965,6 @@ __metadata:
   version: 5.2.3
   resolution: "long@npm:5.2.3"
   checksum: 885ede7c3de4facccbd2cacc6168bae3a02c3e836159ea4252c87b6e34d40af819824b2d4edce330bfb5c4d6e8ce3ec5864bdcf9473fa1f53a4f8225860e5897
-  languageName: node
-  linkType: hard
-
-"long@npm:~3":
-  version: 3.2.0
-  resolution: "long@npm:3.2.0"
-  checksum: bc27bdeab42cb2f25d0a0faf5fbf77b657bd59236ae0ed649c44f91f35e632230ebd0c62d208bb4e9c69ca558a45e9c9c0810e6b5c0380a1754b8f3b5b7b62d7
   languageName: node
   linkType: hard
 
@@ -12981,7 +13135,7 @@ __metadata:
     "@testing-library/jest-dom": ^5.14.1
     "@testing-library/react": ^13.0.0
     "@testing-library/user-event": ^13.2.1
-    "@trezor/connect-web": ^9.1.3
+    "@trezor/connect-web": ^9.1.12
     "@types/jest": ^27.0.1
     "@types/node": ^16.7.13
     "@types/platform": ^1.3.4
@@ -13824,6 +13978,13 @@ __metadata:
   version: 0.1.13
   resolution: "ts-interface-checker@npm:0.1.13"
   checksum: 20c29189c2dd6067a8775e07823ddf8d59a33e2ffc47a1bd59a5cb28bb0121a2969a816d5e77eda2ed85b18171aa5d1c4005a6b88ae8499ec7cc49f78571cb5e
+  languageName: node
+  linkType: hard
+
+"ts-mixer@npm:^6.0.3":
+  version: 6.0.4
+  resolution: "ts-mixer@npm:6.0.4"
+  checksum: 36b1af526befd74345e736e9aa16f5c28876ebcea07784da14d929149fd7e6028cfd2fe9304c8efe8cb91b588443a9cc9e991df58e4c6e602326edbaae2af3ab
   languageName: node
   linkType: hard
 
@@ -14873,7 +15034,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:7.5.9, ws@npm:^7.2.0, ws@npm:^7.4.5, ws@npm:^7.4.6":
+"ws@npm:^7.2.0, ws@npm:^7.4.5, ws@npm:^7.4.6":
   version: 7.5.9
   resolution: "ws@npm:7.5.9"
   peerDependencies:
@@ -14900,6 +15061,21 @@ __metadata:
     utf-8-validate:
       optional: true
   checksum: 53e991bbf928faf5dc6efac9b8eb9ab6497c69feeb94f963d648b7a3530a720b19ec2e0ec037344257e05a4f35bd9ad04d9de6f289615ffb133282031b18c61c
+  languageName: node
+  linkType: hard
+
+"ws@npm:^8.16.0":
+  version: 8.16.0
+  resolution: "ws@npm:8.16.0"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ">=5.0.2"
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: feb3eecd2bae82fa8a8beef800290ce437d8b8063bdc69712725f21aef77c49cb2ff45c6e5e7fce622248f9c7abaee506bae0a9064067ffd6935460c7357321b
   languageName: node
   linkType: hard
 
